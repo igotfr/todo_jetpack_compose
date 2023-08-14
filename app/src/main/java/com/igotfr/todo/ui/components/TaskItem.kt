@@ -13,9 +13,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -42,6 +47,9 @@ fun TaskItem(
   val titleTask = tasks[position].title
   val descriptionTask = tasks[position].description
   val priorityTask = tasks[position].priority
+  val completedTask = tasks[position].completed
+
+  var completedTaskState by remember { mutableStateOf(completedTask) }
 
   val scope = rememberCoroutineScope()
   val taskRepository = TaskRepository()
@@ -62,6 +70,16 @@ fun TaskItem(
 
       }
       .show()
+  }
+
+  fun toggleCompleted() {
+    taskRepository.taskUpdateOneCompletedField(titleTask, !completedTaskState)
+    scope.launch(Dispatchers.Main) {
+      completedTaskState = !completedTaskState
+      //tasks[position].apply { completed = mutableStateOf(!completedTask.value) }
+      //completedTaskState = !completedTask
+      //navController.navigate("tasks")
+    }
   }
 
   val priorityLevel: String = when (priorityTask) {
@@ -100,6 +118,12 @@ fun TaskItem(
       Row(
         modifier = Modifier.padding(top = 10.dp, start = 10.dp, bottom = 10.dp)
       ) {
+        Checkbox(
+          checked = completedTaskState,
+          onCheckedChange = {
+            toggleCompleted()
+          }
+        )
         Text(
           text = priorityLevel,
           modifier = Modifier.padding(top = 15.dp, end = 10.dp)

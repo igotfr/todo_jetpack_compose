@@ -158,24 +158,24 @@ fun TaskSavePage(
               message = false
             } else if (titleTask.isNotEmpty()) {
               if (highPriorityTask) {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.HIGH_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.HIGH_PRIORITY, false)
               } else if (mediumPriorityTask) {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.MEDIUM_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.MEDIUM_PRIORITY, false)
               } else if (lowPriorityTask) {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.LOW_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.LOW_PRIORITY, false)
               } else {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.NO_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.NO_PRIORITY,false)
               }
               message = true
             } else if (titleTask.isNotEmpty() && descriptionTask.isNotEmpty()) {
               if (highPriorityTask) {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.HIGH_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.HIGH_PRIORITY, false)
               } else if (mediumPriorityTask) {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.MEDIUM_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.MEDIUM_PRIORITY, false)
               } else if (lowPriorityTask) {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.LOW_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.LOW_PRIORITY, false)
               } else {
-                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.NO_PRIORITY)
+                taskRepository.taskCreateOne(titleTask, descriptionTask, Constants.NO_PRIORITY, false)
               }
               message = true
             }

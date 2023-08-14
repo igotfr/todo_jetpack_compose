@@ -14,15 +14,16 @@ class FirestoreTaskDataSource : TaskDataSource {
   private val tasksAllMutable = MutableStateFlow<MutableList<Task>>(mutableListOf())
   private val tasksAll: StateFlow<MutableList<Task>> = tasksAllMutable
 
-  override fun taskCreateOne(title: String, description: String, priority: Int) {
+  override fun taskCreateOne(title: String, description: String, priority: Int, completed: Boolean) {
     val taskMap = hashMapOf(
       "title" to title,
       "description" to description,
-      "priority" to priority
+      "priority" to priority,
+      "completed" to completed
     )
 
     db.collection("tasks").document(title).set(taskMap).addOnCompleteListener {}
-      .addOnFailureListener {exception ->
+      .addOnFailureListener { exception ->
         Log.e(TAG, "Falha da molestia", exception)
       }
   }
@@ -61,5 +62,9 @@ class FirestoreTaskDataSource : TaskDataSource {
     }.addOnFailureListener {
 
     }
+  }
+
+  override fun taskUpdateOneCompletedField(title: String, completed: Boolean) {
+    db.collection("tasks").document(title).update("completed", completed)
   }
 }
