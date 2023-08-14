@@ -76,9 +76,6 @@ fun TaskItem(
     taskRepository.taskUpdateOneCompletedField(titleTask, !completedTaskState)
     scope.launch(Dispatchers.Main) {
       completedTaskState = !completedTaskState
-      //tasks[position].apply { completed = mutableStateOf(!completedTask.value) }
-      //completedTaskState = !completedTask
-      //navController.navigate("tasks")
     }
   }
 
